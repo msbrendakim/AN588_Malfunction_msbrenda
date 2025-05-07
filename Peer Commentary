@@ -1,0 +1,11 @@
+1. What I learned from running your Original Homework Code that helped improve my own code:
+Your custom Z.prop.test() function gave me a much clearer understanding of how the logic of hypothesis testing for proportions works under the hood. The way you structured both the one-sample and two-sample cases within the same function, with readable internal logic and built-in warnings for normality assumptions, helped me improve the structure of my own statistical functions. I also appreciated how cleanly you handled switching the alternative argument — that part of your logic inspired me to simplify my own test wrappers.
+
+2. What I did in my own code that might help to improve yours:
+In my version, I used the tibble output style to label and display results from the regression model and prediction more clearly, especially when comparing models. You might consider adding similar formatting to your prediction output and CI reporting, just to make the results easier to interpret at a glance. I also wrote helper functions for generating plots with regression lines and annotations automatically, which could help reduce redundancy across the two model visualizations.
+
+3. What challenges, if any, we both faced in our code that could not be helped by comparison:
+Both of us had to work around missing or extreme values in the Kamilar and Cooper dataset, particularly in log transformations where zeros or NAs could break the model. These kinds of data issues are tricky because they often require conditional filtering that’s not obvious at first glance. Your code handled these gracefully by using na.rm = TRUE, which I also leaned on when building plots and models.
+
+4. Whether the annotation/commenting on your Original Homework Code is readable and interpretable to you, and if not then how it could be improved:
+Your comments are clear and helpful — I had no trouble following your thought process. The structure of the script, especially the labeling of each analysis section, made it easy to navigate and understand. If I could suggest one small improvement, it would be to briefly summarize what each model or visualization shows in a sentence or two before or after the code chunk, so the reader can immediately connect the R output with the broader biological interpretation.
