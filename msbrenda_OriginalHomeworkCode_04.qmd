@@ -49,7 +49,7 @@ Z.prop.test <- function(p1, n1, p0, p2 = NULL, n2 = NULL, alternative = "two.sid
   return(list(Z = Z, P = p_val, CI = ci))
 }
 
-# Example usage
+# Test
 Z.prop.test(p1 = 0.6, n1 = 100, p0 = 0.5, alternative = "two.sided")
 ```
 
@@ -81,3 +81,28 @@ pred <- predict(model1, newdata = data.frame(Brain_Size_Species_Mean = 800), int
 pred
 ```
 
+## Log-Transformed Model
+
+```{r}
+# Log-transformed regression
+data <- data %>% mutate(log_longevity = log(MaxLongevity_m), log_brain = log(Brain_Size_Species_Mean))
+model2 <- lm(log_longevity ~ log_brain, data = data)
+
+# Scatterplot
+ggplot(data, aes(x = log_brain, y = log_longevity)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE, level = 0.90) +
+  geom_text(x = min(data$log_brain, na.rm = TRUE), y = max(data$log_longevity, na.rm = TRUE),
+            label = paste("y =", round(coef(model2)[1], 2), "+", round(coef(model2)[2], 2), "x"),
+            hjust = 0, vjust = 1) +
+  labs(x = "Log Brain Size", y = "Log Longevity", title = "Log Longevity vs Log Brain Size")
+
+# Slope estimate and 90% CI
+summary(model2)$coefficients
+confint(model2, level = 0.90)
+
+# Model comparison
+AIC(model1, model2)
+```
+
+Since model2's AIC value is lower than models1's, the log-transformed model performed better in this scenario.
